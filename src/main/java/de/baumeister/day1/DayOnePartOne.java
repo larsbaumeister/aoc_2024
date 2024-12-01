@@ -8,12 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public class DayOne {
+public class DayOnePartOne {
 
     public static void main(String[] args) throws URISyntaxException, IOException {
         var leftList = new ArrayList<Integer>();
         var rightList = new ArrayList<Integer>();
-        for (var line : Files.readAllLines(Path.of(DayOne.class.getResource("/day1/input.txt").toURI()))) {
+        for (var line : Files.readAllLines(Path.of(DayOnePartOne.class.getResource("/day1/input.txt").toURI()))) {
             var split = line.split("\s+");
             leftList.add(Integer.parseInt(split[0]));
             rightList.add(Integer.parseInt(split[1]));
