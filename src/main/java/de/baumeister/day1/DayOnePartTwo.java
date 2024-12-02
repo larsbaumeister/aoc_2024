@@ -4,30 +4,28 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DayOnePartTwo {
 
     public static void main(String[] args) throws URISyntaxException, IOException {
-        var leftList = new ArrayList<Integer>();
-        var rightList = new ArrayList<Integer>();
-        for (var line : Files.readAllLines(Path.of(DayOnePartOne.class.getResource("/day1/input.txt").toURI()))) {
-            var split = line.split("\s+");
-            leftList.add(Integer.parseInt(split[0]));
-            rightList.add(Integer.parseInt(split[1]));
-        }
+        var res = Files.readAllLines(Path.of(DayOnePartOne.class.getResource("/day1/input.txt").toURI())).stream()
+            .map(line -> line.split("\s+"))
+            .collect(Collectors.teeing(
+                Collectors.mapping(split -> Integer.parseInt(split[0]), Collectors.toList()),
+                Collectors.mapping(split -> Integer.parseInt(split[1]), Collectors.toList()),
+                (left, right) -> {
+                    var counts = right.stream()
+                            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        var counts = rightList.stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                    return left.stream()
+                            .mapToInt(i -> i * counts.getOrDefault(i, 0L).intValue())
+                            .sum();
+                }
+            ));
 
-        var sum = leftList.stream()
-                .mapToInt(i -> i * counts.getOrDefault(i, 0L).intValue())
-                .sum();
-
-        System.out.println(sum);
-
+        System.out.println(res);
     }
 
 }
