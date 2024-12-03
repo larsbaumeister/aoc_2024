@@ -27,25 +27,23 @@ public class DayThreePartTwo {
         }
 
         private void run(String code) {
-            code.chars().forEach(c -> nextToken((char) c));
-        }
-
-        private void nextToken(char token) {
-            currentWord.append(token);
-            if (currentWord.toString().endsWith("do()")) {
-                active = true;
-                currentWord = new StringBuilder();
-            } else if (currentWord.toString().endsWith("don't()")) {
-                active = false;
-                currentWord = new StringBuilder();
-            } else if (active) {
-                var matcher = pattern.matcher(currentWord);
-                while (matcher.find()) {
-                    sum += (long) Integer.parseInt(matcher.group(1)) * Integer.parseInt(matcher.group(2));
+            for (var i = 0; i < code.length(); i++) {
+                var c = code.charAt(i);
+                currentWord.append(c);
+                if (currentWord.toString().endsWith("do()")) {
+                    active = true;
                     currentWord = new StringBuilder();
+                } else if (currentWord.toString().endsWith("don't()")) {
+                    active = false;
+                    currentWord = new StringBuilder();
+                } else if (active) {
+                    var matcher = pattern.matcher(currentWord);
+                    while (matcher.find()) {
+                        sum += (long) Integer.parseInt(matcher.group(1)) * Integer.parseInt(matcher.group(2));
+                        currentWord = new StringBuilder();
+                    }
                 }
             }
-
         }
     }
 }

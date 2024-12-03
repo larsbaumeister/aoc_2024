@@ -15,7 +15,7 @@ public class DayThreePartOne {
 
         long res = 0;
         while (matcher.find()) {
-            res += (long) Integer.parseInt(matcher.group(1)) * Integer.parseInt(matcher.group(2));
+            res += Long.parseLong(matcher.group(1)) * Long.parseLong(matcher.group(2));
         }
         System.out.println(res);
     }
