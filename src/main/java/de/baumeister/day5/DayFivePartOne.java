@@ -26,26 +26,16 @@ public class DayFivePartOne {
 
         var sum = sections[1].lines()
             .map(line -> Stream.of(line.split(",")).map(Integer::parseInt).toList())
-            .filter(update -> updateIsValid(update, rules))
+            .filter(update -> update.stream()
+                .flatMap(u -> rules.get(u).stream().map(i -> Map.entry(u, i)))
+                .noneMatch(entry -> {
+                    var idx = update.indexOf(entry.getValue());
+                    return idx != -1 && idx < update.indexOf(entry.getKey());
+                }))
             .mapToInt(update -> update.get(update.size() / 2))
             .sum();
 
         System.out.println(sum);
-    }
-
-    private static boolean updateIsValid(List<Integer> update, Map<Integer, List<Integer>> rules) {
-        for (var i = 0; i < update.size(); i++) {
-            var item = update.get(i);
-            var rule = rules.get(item);
-
-            for (var ruleItem : rule) {
-                var idx = update.indexOf(ruleItem);
-                if (idx != -1 && idx < i) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
 }
