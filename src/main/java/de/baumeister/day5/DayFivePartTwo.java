@@ -4,10 +4,7 @@ import de.baumeister.day2.DayTwoPartOne;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -53,22 +50,7 @@ public class DayFivePartTwo {
 
     private static List<Integer> correctUpdate(List<Integer> update, Map<Integer, List<Integer>> rules) {
         var correctList = new LinkedList<>(update);
-
-        boolean isCorrect = false;
-        while (!isCorrect) {
-            isCorrect = true;
-            for (var i = 0; i < correctList.size() - 1; i++) {
-                var item = correctList.get(i);
-                var nextItem = correctList.get(i + 1);
-
-                if (rules.get(nextItem).contains(item)) {
-                    correctList.set(i, nextItem);
-                    correctList.set(i + 1, item);
-                    isCorrect = false;
-                }
-            }
-        }
-
+        correctList.sort((o1, o2) -> rules.get(o2).contains(o1) ? -1 : 0);
         return correctList;
     }
 
