@@ -28,30 +28,30 @@ public class DaySevenPartTwo {
         }
 
         public boolean isValid() {
-            var toConsume = new ArrayDeque<>(numbers.reversed());
-            var current = new HashSet<Long>();
-            current.add(result);
-            while (!toConsume.isEmpty() && !current.isEmpty()) {
-                var num = toConsume.poll();
+            var reversedNumbers = new ArrayDeque<>(numbers.reversed());
+            var intermediateResults = new HashSet<Long>();
+            intermediateResults.add(result);
+            while (!reversedNumbers.isEmpty() && !intermediateResults.isEmpty()) {
+                var number = reversedNumbers.poll();
                 var next = new HashSet<Long>();
-                for (var v : current) {
-                    if (Objects.equals(v, num) && toConsume.isEmpty()) {
+                for (var res : intermediateResults) {
+                    if (Objects.equals(res, number) && reversedNumbers.isEmpty()) {
                         return true;
                     }
-                    if (v > num) {
-                        long changed = v - num;
+                    if (res > number) {
+                        long changed = res - number;
                         next.add(changed);
                     }
-                    if (v % num == 0) {
-                        long changed = v / num;
+                    if (res % number == 0) {
+                        long changed = res / number;
                         next.add(changed);
                     }
-                    long revConc = reverseConcat(v, num);
-                    if (revConc != v) {
+                    long revConc = reverseConcat(res, number);
+                    if (revConc != res) {
                         next.add(revConc);
                     }
                 }
-                current = next;
+                intermediateResults = next;
             }
             return false;
         }
