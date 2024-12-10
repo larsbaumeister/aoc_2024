@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class DayNinePartOne {
 
@@ -15,9 +16,15 @@ public class DayNinePartOne {
         System.out.println(sum);
     }
 
-    record FileSystem(LinkedList<FileBlock> blocks) {
+    static class FileSystem {
 
-        public static FileSystem from(String s) {
+        private final List<FileBlock> blocks;
+
+        FileSystem(List<FileBlock> blocks) {
+            this.blocks = blocks;
+        }
+
+        static FileSystem from(String s) {
             var list = new LinkedList<FileBlock>();
             for (var i = 0; i < s.length(); i++) {
                 var isEmpty = i % 2 != 0;
@@ -28,7 +35,7 @@ public class DayNinePartOne {
             return new FileSystem(list);
         }
 
-        public void shiftLeft() {
+        void shiftLeft() {
             for (var block : new ArrayList<>(blocks).reversed()) {
                 if (!block.isEmpty) {
                     var shiftPerformed = shiftBlockLeft(block);
@@ -49,7 +56,6 @@ public class DayNinePartOne {
                         return false;
                     }
                     cancelled = true;
-
                 }
 
                 var toMove = Math.min(remaining, nextBlock.size);
