@@ -89,39 +89,39 @@ public class DayTwelvePartTwo {
         }
 
         int numberOfCorners(Position position) {
-            var ptl = new Position(position.x() - 1, position.y() - 1);
-            var tl = !isValid(ptl) || get(ptl) != get(position);
+            var positionTopLeft = new Position(position.x() - 1, position.y() - 1);
+            var topLeft = !isValid(positionTopLeft) || get(positionTopLeft) != get(position);
 
-            var ptr = new Position(position.x() + 1, position.y() - 1);
-            var tr = !isValid(ptr) || get(ptr) != get(position);
+            var positionTopRight = new Position(position.x() + 1, position.y() - 1);
+            var topRight = !isValid(positionTopRight) || get(positionTopRight) != get(position);
 
-            var pbl = new Position(position.x() - 1, position.y() + 1);
-            var bl = !isValid(pbl) || get(pbl) != get(position);
+            var positionBottomLeft = new Position(position.x() - 1, position.y() + 1);
+            var bottomLeft = !isValid(positionBottomLeft) || get(positionBottomLeft) != get(position);
 
-            var pbr = new Position(position.x() + 1, position.y() + 1);
-            var br = !isValid(pbr) || get(pbr) != get(position);
+            var positionBottomRight = new Position(position.x() + 1, position.y() + 1);
+            var bottomRight = !isValid(positionBottomRight) || get(positionBottomRight) != get(position);
 
-            var pt = new Position(position.x(), position.y() - 1);
-            var t = !isValid(pt) || get(pt) != get(position);
+            var positionTop = new Position(position.x(), position.y() - 1);
+            var top = !isValid(positionTop) || get(positionTop) != get(position);
 
-            var pl = new Position(position.x() - 1, position.y());
-            var l = !isValid(pl) || get(pl) != get(position);
+            var positionLeft = new Position(position.x() - 1, position.y());
+            var left = !isValid(positionLeft) || get(positionLeft) != get(position);
 
-            var pr = new Position(position.x() + 1, position.y());
-            var r = !isValid(pr) || get(pr) != get(position);
+            var positionRight = new Position(position.x() + 1, position.y());
+            var right = !isValid(positionRight) || get(positionRight) != get(position);
 
-            var pb = new Position(position.x(), position.y() + 1);
-            var b = !isValid(pb) || get(pb) != get(position);
+            var positionBottom = new Position(position.x(), position.y() + 1);
+            var bottom = !isValid(positionBottom) || get(positionBottom) != get(position);
 
             var count = 0;
-            if (t && l) count++;
-            if (t && r) count++;
-            if (b && l) count++;
-            if (b && r) count++;
-            if (!t && !r && tr) count++;
-            if (!t && !l && tl) count++;
-            if (!b && !r && br) count++;
-            if (!b && !l && bl) count++;
+            if (top && left) count++;
+            if (top && right) count++;
+            if (bottom && left) count++;
+            if (bottom && right) count++;
+            if (!top && !right && topRight) count++;
+            if (!top && !left && topLeft) count++;
+            if (!bottom && !right && bottomRight) count++;
+            if (!bottom && !left && bottomLeft) count++;
             return count;
         }
 
