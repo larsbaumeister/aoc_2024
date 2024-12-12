@@ -1,7 +1,5 @@
 package de.baumeister.day10;
 
-import de.baumeister.day2.DayTwoPartOne;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -10,7 +8,7 @@ import java.util.stream.Stream;
 
 public class DayTenPartOne {
     public static void main(String[] args) throws Exception {
-        var map = TopographicMap.from(Files.lines(Paths.get(DayTwoPartOne.class.getResource("/day10/input.txt").toURI()))
+        var map = TopographicMap.from(Files.lines(Paths.get(DayTenPartOne.class.getResource("/day10/input.txt").toURI()))
                 .map(String::toCharArray)
                 .toArray(char[][]::new));
 
